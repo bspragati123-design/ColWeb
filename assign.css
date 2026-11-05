@@ -1,11 +1,14 @@
-.card{
-    height: 780px;
+
+.card {
+    box-sizing: border-box;
+    min-height: 780px;
     width: 720px;
-    padding:10px;
-    border:5px solid black;
+    padding: 15px;
+    border: 5px solid black;
     background-color: blanchedalmond;
-    margin:5px;
+    margin: 5px;
     text-align: center;
+
     
 }
 img{
@@ -16,10 +19,14 @@ img{
 
 }
 body{
-   display:flex;
-   justify-content: center;
-   align-items: center;
-   font-weight: 500;
+  body {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    font-weight: 500;
+    margin: 0;
+    padding: 20px;
+}
 }
 table{
     text-align: center;
@@ -33,4 +40,30 @@ th{
     color: white;
     font-weight: 500;
     font-size: larger;
+}
+/* Student Timetable Button */
+.timetable-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 9px;
+    width: fit-content;
+    margin-left: auto;
+    margin-bottom: 18px;
+    padding: 11px 20px;
+    border-radius: 12px;
+    background: linear-gradient(110deg, #7956e8, #4d83ed);
+    color: white;
+    text-decoration: none;
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+    font-weight: bold;
+    box-shadow: 0 5px 15px rgba(100, 80, 210, 0.22);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.timetable-button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(100, 80, 210, 0.3);
+    color: white;
 }

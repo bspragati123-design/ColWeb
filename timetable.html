@@ -1,0 +1,229 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Create and manage your ColWeb student timetable.">
+    <title>Student Timetable | ColWeb</title>
+    <link rel="stylesheet" href="timetable.css">
+    <script src="timetable.js" defer></script>
+</head>
+<body>
+
+<header class="topbar">
+    <a class="brand" href="index.html">
+        <span class="brand-mark">C</span>
+        <span>ColWeb</span>
+    </a>
+    <a class="home-link" href="index.html">← Back to Home</a>
+</header>
+
+<main class="page">
+
+    <section class="hero">
+        <div>
+        
+            <p class="eyebrow">STUDENT TOOLS</p>
+            <h1>Your timetable, <span>your way.</span></h1>
+            <p class="hero-copy">
+                Plan your week, organise your subjects and keep your class schedule in one place.
+            </p>
+        </div>
+        <div class="hero-chip">
+            <span class="live-dot"></span>
+            <span id="today-label">Your weekly schedule</span>
+        </div>
+    </section>
+
+    <section class="toolbar panel">
+        <div class="semester-control">
+            <label for="semester-select">Choose semester</label>
+            <select id="semester-select">
+                <option value="1">1st Semester</option>
+                <option value="2">2nd Semester</option>
+                <option value="3" selected>3rd Semester</option>
+                <option value="4">4th Semester</option>
+                <option value="5">5th Semester</option>
+                <option value="6">6th Semester</option>
+                <option value="7">7th Semester</option>
+                <option value="8">8th Semester</option>
+            </select>
+        </div>
+
+        <div class="toolbar-actions">
+            <button type="button" class="button button-quiet" id="export-button">
+                Export timetable
+            </button>
+            <button type="button" class="button button-danger" id="reset-button">
+                Reset this semester
+            </button>
+        </div>
+    </section>
+
+    <section class="summary-grid">
+        <article class="summary-card panel">
+            <span class="summary-icon purple">▦</span>
+            <div>
+                <p class="summary-label">Selected semester</p>
+                <p class="summary-value" id="summary-semester">3rd Semester</p>
+            </div>
+        </article>
+
+        <article class="summary-card panel">
+            <span class="summary-icon blue">◷</span>
+            <div>
+                <p class="summary-label">Periods per day</p>
+                <p class="summary-value">7 periods</p>
+            </div>
+        </article>
+
+        <article class="summary-card panel">
+            <span class="summary-icon pink">✦</span>
+            <div>
+                <p class="summary-label">Filled slots</p>
+                <p class="summary-value" id="filled-count">0 / 42</p>
+            </div>
+        </article>
+    </section>
+
+    <section class="editor panel" id="editor-panel">
+        <div class="section-heading">
+            <div>
+                <p class="eyebrow">QUICK EDITOR</p>
+                <h2 id="editor-title">Add a class</h2>
+                <p class="muted">Choose a day and period, then enter the class details.</p>
+            </div>
+            <span class="editor-badge">Changes save automatically</span>
+        </div>
+
+        <form id="class-form">
+            <div class="form-grid">
+
+                <div class="field">
+                    <label for="day-input">Day</label>
+                    <select id="day-input" required>
+                        <option>Monday</option>
+                        <option>Tuesday</option>
+                        <option>Wednesday</option>
+                        <option>Thursday</option>
+                        <option>Friday</option>
+                        <option>Saturday</option>
+                    </select>
+                </div>
+
+                <div class="field">
+                    <label for="period-input">Period</label>
+                    <select id="period-input" required>
+                        <option value="1">Period 1 · 9:00–9:55</option>
+                        <option value="2">Period 2 · 9:55–10:50</option>
+                        <option value="3">Period 3 · 11:00–11:55</option>
+                        <option value="4">Period 4 · 11:55–12:50</option>
+                        <option value="5">Period 5 · 1:35–2:30</option>
+                        <option value="6">Period 6 · 2:30–3:25</option>
+                        <option value="7">Period 7 · 3:25–4:20</option>
+                    </select>
+                </div>
+
+                <div class="field">
+                    <label for="subject-input">Subject / activity <span class="required">*</span></label>
+                    <input id="subject-input" type="text" maxlength="70"
+                           placeholder="e.g. Data Structures" required>
+                </div>
+
+                <div class="field">
+                    <label for="code-input">Subject code</label>
+                    <input id="code-input" type="text" maxlength="25"
+                           placeholder="e.g. 1BCS305">
+                </div>
+
+                <div class="field">
+                    <label for="faculty-input">Faculty</label>
+                    <input id="faculty-input" type="text" maxlength="60"
+                           placeholder="Faculty name">
+                </div>
+
+                <div class="field">
+                    <label for="room-input">Room / lab</label>
+                    <input id="room-input" type="text" maxlength="30"
+                           placeholder="e.g. NB-415">
+                </div>
+
+            </div>
+
+            <div class="form-actions">
+                <p class="form-note" id="form-note" aria-live="polite">
+                    Select any slot in the timetable to fill it quickly.
+                </p>
+
+                <div class="form-buttons">
+                    <button type="button" class="button button-quiet"
+                            id="cancel-edit" hidden>Cancel edit</button>
+                    <button type="submit" class="button button-primary"
+                            id="save-class">Save class</button>
+                </div>
+            </div>
+        </form>
+    </section>
+
+    <section class="timetable-section panel">
+        <div class="section-heading timetable-heading">
+            <div>
+                <p class="eyebrow">WEEK AT A GLANCE</p>
+                <h2 id="table-title">3rd Semester Timetable</h2>
+                <p class="muted">Select Add in an empty slot or Edit on an existing class.</p>
+            </div>
+            <span class="sample-tag" id="sample-tag">SMVIT reference sample</span>
+        </div>
+
+        <div class="legend">
+            <span><i class="legend-dot class-dot"></i> Class / lab</span>
+            <span><i class="legend-dot break-dot"></i> Break</span>
+            <span><i class="legend-dot today-dot"></i> Today</span>
+        </div>
+
+        <div class="table-scroll">
+            <table class="timetable" aria-label="Weekly student timetable">
+                <thead>
+                    <tr>
+                        <th class="day-column">DAY</th>
+                        <th><span>PERIOD 1</span><small>9:00–9:55</small></th>
+                        <th><span>PERIOD 2</span><small>9:55–10:50</small></th>
+                        <th class="break-column"><span>SHORT BREAK</span><small>10:50–11:00</small></th>
+                        <th><span>PERIOD 3</span><small>11:00–11:55</small></th>
+                        <th><span>PERIOD 4</span><small>11:55–12:50</small></th>
+                        <th class="break-column lunch-column"><span>LUNCH</span><small>12:50–1:35</small></th>
+                        <th><span>PERIOD 5</span><small>1:35–2:30</small></th>
+                        <th><span>PERIOD 6</span><small>2:30–3:25</small></th>
+                        <th><span>PERIOD 7</span><small>3:25–4:20</small></th>
+                    </tr>
+                </thead>
+                <tbody id="timetable-body"></tbody>
+            </table>
+        </div>
+
+        <p class="table-footnote">
+            Each period is 55 minutes. The timetable day runs from 9:00 AM to 4:20 PM,
+            including the 10-minute short break and 45-minute lunch break.
+        </p>
+    </section>
+
+    <section class="help-strip">
+        <span class="help-icon">💡</span>
+        <p>
+            <strong>Tip:</strong> Your timetable is saved in this browser on this device.
+            Use Export timetable to download a backup before changing devices or clearing browser data.
+        </p>
+    </section>
+
+    <p class="status-message" id="status-message" role="status" aria-live="polite"></p>
+
+</main>
+
+<footer class="footer">
+    <span>ColWeb · Student Timetable</span>
+    <span>Made for easier campus life ✦</span>
+</footer>
+
+</body>
+</html>
