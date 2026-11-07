@@ -34,3 +34,46 @@ th{
     font-weight: 500;
     font-size: larger;
 }
+.lost-found-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 14px;
+    padding: 14px 22px;
+    background: linear-gradient(135deg, #7655e8, #a855f7);
+    color: white;
+    text-decoration: none;
+    border-radius: 14px;
+    box-shadow: 0 5px 15px rgba(118, 85, 232, 0.25);
+    transition: all 0.3s ease;
+    margin: 12px;
+}
+
+.lost-found-btn:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 9px 22px rgba(118, 85, 232, 0.35);
+}
+
+.lost-found-icon {
+    font-size: 27px;
+}
+
+.lost-found-text {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    gap: 3px;
+}
+
+.lost-found-text strong {
+    font-size: 16px;
+}
+
+.lost-found-text small {
+    font-size: 12px;
+    color: #f1eaff;
+}
+
+.lost-found-arrow {
+    font-size: 22px;
+    margin-left: 8px;
+}
